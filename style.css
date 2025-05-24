@@ -304,4 +304,10 @@ button:hover { background: #ff8f73; }
   .wrapper {
     flex-direction: column;
   }
+    .lnd-left {
+        width: 20%;
+    }
+    .lnd-right {
+        width: 80%;
+    }
 }
