@@ -306,6 +306,7 @@ button:hover { background: #ff8f73; }
   }
 .lnd-left {
         width: 20% !important;
+    flex-shrink: 0;
     }
 .lnd-right {
         width: 80% !important;
