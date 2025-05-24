@@ -19,15 +19,91 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: var(--main-bg);
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+  font-family: 'Pretendard JP Variable', sans-serif;
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+li.nonelist{display: inline-block;}
+
+
 .wrapper {
+    max-width: 900px;
+    width: 90%;
+    margin: 60px auto 30px auto; /* 상단 50px 여백, 좌우 auto로 수평 중앙 정렬 */
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    box-sizing: border-box;
+    align-items: flex-start
+}
+
+.input-area,
+.output-wrapper {
+  background: var(--chat-box-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #00000010;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.output-area {
+  flex-grow: 1;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow-wrap: break-word;
+}
+
+.copycode-wrap {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.makecode-wrap {
+  display: flex;
+  justify-content: flex-start;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+
+textarea#outputCode {
+  resize: none;
+  width: 100%;
+  font-family: monospace;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 150px;
+}
+
+.preview-outline{
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+/* .wrapper {
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -39,7 +115,7 @@ body {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 0 10px #00000010;
-}
+} */
 h2, h3 {
     margin: 0;
     padding: 0;
@@ -55,7 +131,6 @@ label {
   font-size: 14px;
 }
 input[type="text"] {
-display: block;
   width: 100%;
   padding: 8px 10px;
   border: 1px solid #ccc;
@@ -63,14 +138,21 @@ display: block;
   font-size: 14px;
   margin-top: 4px;
 }
-textarea {
+
+input[type="radio"] {
+  margin: 0 5px 0 15px;
+  accent-color: var(--accent-color);
+}
+
+
+/* textarea {
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 10px;
   font-size: 14px;
   resize: none;
-}
+} */
 
 button {
   background: var(--accent-color);
@@ -83,18 +165,19 @@ button {
   cursor: pointer;
   transition: background 0.3s;
   font-size: 14px;
+  font-family: "Pretendard Variable", "Pretendard JP Variable";
 }
 button:hover { background: #ff8f73; }
-.copycode-wrap {
+/* .copycode-wrap {
   display: flex;
   justify-content: flex-end;
 }
 .output-area {
   background: #fff;
   padding: 15px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-}
+} */
+
+
 .lnd-sns{
     display: flex;
     justify-content: flex-start;
@@ -161,3 +244,64 @@ button:hover { background: #ff8f73; }
     margin-right: 13px;
 }
 .commenter{ color: #c16a55; }
+
+.how-to-info h5{
+    font-size: 1em;
+    margin: 0;
+}
+.how-to-info ol {
+    font-size: .9em;
+    padding: 0;
+    margin: 0;
+    list-style-position: inside;
+}
+.how-to-info li{
+    margin: 6px 0;
+}
+
+.how-to-tip{
+    margin: 10px 0;
+}
+.how-to-tip h5{
+    font-size: 1em;
+    margin: 0;
+}
+.how-to-tip ol {
+    font-size: .9em;
+    padding: 0;
+    margin: 0;
+    list-style-position: inside;
+    list-style: none;
+}
+
+ .how-to-tip li {
+  position: relative;
+  padding-left: 1.5em;   /* 아이콘만큼 왼쪽 공간 확보 */
+  margin: 6px 0;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.how-to-tip li::before {
+  content: '\f071';              /* Font Awesome 아이콘 */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 1em;
+  color: var(--accent-color);
+  position: absolute;
+  left: 0;
+  top: 0;                        /* ← 핵심: 텍스트와 같은 줄에 위치 */
+  line-height: 1.5;              /* 텍스트와 맞추기 위한 line-height */
+}
+
+.copyrightt{ height: 30px;}
+
+
+
+
+
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+  }
+}
