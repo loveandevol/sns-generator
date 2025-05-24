@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>SNS 스타일 카드 생성기</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/751d015302.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+  <div class="input-area">
+    <h2>SNS 카드 생성기</h2>
+    <label>프로필 이미지 추가 방식:
+      <input type="radio" name="iconType" value="url" checked onclick="toggleIconInput()"> URL로 입력
+      <input type="radio" name="iconType" value="upload" onclick="toggleIconInput()"> 파일 업로드
+    </label>
+    
+
+    <div id="iconUrlInputArea">
+      <label>프로필 사진 URL <input type="text" id="iconUrl"></label>
+    </div>
+
+    <div id="iconFileInputArea" style="display: none;">
+      <label>이미지 업로드 <input type="file" id="iconFile" accept="image/*"></label>
+    </div>
+
+    <label>이름 <input type="text" id="userName"></label>
+    <label>내용 <input type="text" id="mainContent"></label>
+    <label>본문 이미지 추가 방식:
+      <input type="radio" name="imageType" value="url" checked onclick="toggleImageInput()"> URL로 입력
+      <input type="radio" name="imageType" value="upload" onclick="toggleImageInput()"> 파일 업로드
+    </label>
+
+    <div id="urlInputArea">
+      <label>본문에 넣을 이미지 URL <input type="text" id="contentImageUrl"></label>
+    </div>
+
+    <div id="fileInputArea" style="display: none;">
+      <label>이미지 업로드 <input type="file" id="contentImageFile" accept="image/*"></label>
+    </div>
+
+    <label>좋아요 표시 여부:
+      <input type="radio" name="like" value="yes" id="likeYes"> 예
+      <input type="radio" name="like" value="no" id="likeNo" checked> 아니오
+    </label>
+    <label id="likeNamesLabel" style="display:none;">좋아요 누른 사람들 이름 <input type="text" id="likeNames"></label>
+
+    <h3>댓글 추가</h3>
+    <label>댓글 작성자 <input type="text" id="commentName"></label>
+    <label>댓글 내용 <input type="text" id="commentText"></label>
+    <button onclick="addComment()">댓글 추가</button>
+
+    <h3>답글 추가</h3>
+    <label>답글 작성자 <input type="text" id="replyName"></label>
+    <label>답글 대상자 <input type="text" id="replyTo"></label>
+    <label>답글 내용 <input type="text" id="replyText"></label>
+    <button onclick="addReply()">답글 추가</button>
+
+    <button onclick="generateCard()">생성</button>
+  </div>
+
+  <div class="output-area" id="preview"></div>
+  <div class="copycode-wrap">
+    <button class="copycode" onclick="copyCode()">코드 복사</button>
+    <button onclick="savePreviewAsImage()">이미지로 저장</button>
+  </div>
+  <textarea id="outputCode" rows="10" readonly></textarea>
+</div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>

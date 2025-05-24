@@ -1,0 +1,163 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-jp.min.css");
+
+@font-face {
+    font-family: 'WandocleanseaB';
+    src: url('images/WandocleanseaB.ttf') ;
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+  --font-family: 'Pretendard JP Variable', sans-serif;
+  --main-bg: #f2f4f8;
+  --chat-box-bg: white;
+  --primary-color: #26262b;
+  --accent-color: #ffbeaa;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--main-bg);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.wrapper {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 15px;
+}
+.input-area {
+  background: var(--chat-box-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #00000010;
+}
+h2, h3 {
+    margin: 0;
+    padding: 0;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+h3{margin-top: 15px;}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+input[type="text"] {
+display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 4px;
+}
+textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  resize: none;
+}
+
+button {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-top: 4px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 14px;
+}
+button:hover { background: #ff8f73; }
+.copycode-wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+.output-area {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+.lnd-sns{
+    display: flex;
+    justify-content: flex-start;
+    margin: 6px 0;
+    font-size: 12px;
+}
+.lnd-left{ width: 15%; }
+.lnd-right{ width: 85%; padding-left: 15px; }
+.lnd-sns-icon{
+    display: block;
+    width: 60px;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.lnd-sns-name{
+    font-size: 1.6em;
+    font-family: 'WandocleanseaB';
+    color: #c16a55;
+    line-height: 1;
+    margin-bottom: 8px;
+    margin-top: 2px;
+}
+.lnd-sns-content{
+    font-family: "Pretendard Variable", "Pretendard JP Variable";
+    font-size: 1.3em;
+    font-weight: 500;
+    line-height: 1.5;
+}
+.lnd-sns-content img {
+    max-width: 90%;
+    max-height: 200px;
+    margin-top: 8px;
+}
+.lnd-sns-comment{
+    background-color: #eae9ee80;
+    font-family: "Pretendard Variable", "Pretendard JP Variable";
+    font-size: 1.3em;
+    font-weight: 500;
+    padding: 10px;
+    margin: 10px 0;
+}
+.lnd-sns-comment p{
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+}
+.lnd-sns-like{
+    border-bottom: 1px solid rgb(214, 214, 214);
+    line-height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 5px 0 10px 0;
+    margin-bottom: 10px;
+}
+.lnd-sns-like::before{
+    content: "\f004";
+    font-family: "FontAwesome";
+    color: #eb6b6a;
+    font-size: 1.3em;
+    margin-right: 13px;
+}
+.commenter{ color: #c16a55; }
