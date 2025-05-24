@@ -10,11 +10,45 @@
 <body>
 <div class="wrapper">
   <div class="input-area">
-    <h2>SNS 카드 생성기</h2>
-    <label>프로필 이미지 추가 방식:
-      <input type="radio" name="iconType" value="url" checked onclick="toggleIconInput()"> URL로 입력
-      <input type="radio" name="iconType" value="upload" onclick="toggleIconInput()"> 파일 업로드
-    </label>
+    <h2>SNS 생성기</h2>
+    <div class="how-to-info">
+      <h5>사용 방법</h5>
+      <ol>
+        <li>기본 정보를 입력해요.</li>
+        <li>댓글 또는 답글을 추가해요.</li>
+        <li>코드 생성을 클릭 시 미리보기와 코드가 불러와져요!</li>
+      </ol>
+    </div>
+    <div class="how-to-tip">
+      <h5>TIPS</h5>
+      <ol>
+        <li>이미지 추가의 경우 코드로 이용할 때는 URL을, 이미지 저장으로 이용할 때는 업로드를 추천해요.</li>
+        <li>기본 정보는 수정 후 코드 생성을 재클릭하면 변경이 가능해요!</li>
+        <li>댓글 또는 답글은 추가 버튼을 누른 순서대로 입력돼요.</li>
+        <li>댓글과 답글은 <b>수정, 삭제가 불가능</b>하며 새로 고침 후 처음부터 다시 입력해야 해요.</li>
+      </ol>
+    </div>
+
+    <div class="preview-outline">
+    <div class="output-area" id="preview"></div>
+    </div>
+
+    <div class="copycode-wrap">
+      <button class="copycode" onclick="copyCode()">코드 복사</button>
+      <button onclick="savePreviewAsImage()">이미지로 저장</button>
+    </div>
+
+    <textarea id="outputCode" rows="10" readonly></textarea>
+
+    
+  </div>
+
+  <div class="output-wrapper">
+    <h3>기본 정보</h3>
+    <ul>프로필 이미지 추가 방식:
+      <li class="nonelist"><label><input type="radio" name="iconType" value="url" checked onclick="toggleIconInput()"> URL로 입력</label></li>
+      <li class="nonelist"><label><input type="radio" name="iconType" value="upload" onclick="toggleIconInput()"> 파일 업로드</label></li>
+    </ul>
     
 
     <div id="iconUrlInputArea">
@@ -27,10 +61,10 @@
 
     <label>이름 <input type="text" id="userName"></label>
     <label>내용 <input type="text" id="mainContent"></label>
-    <label>본문 이미지 추가 방식:
-      <input type="radio" name="imageType" value="url" checked onclick="toggleImageInput()"> URL로 입력
-      <input type="radio" name="imageType" value="upload" onclick="toggleImageInput()"> 파일 업로드
-    </label>
+    <ul>본문 이미지 추가 방식:
+      <li class="nonelist"><label><input type="radio" name="imageType" value="url" checked onclick="toggleImageInput()"> URL로 입력</label></li>
+      <li class="nonelist"><label><input type="radio" name="imageType" value="upload" onclick="toggleImageInput()"> 파일 업로드</label></li>
+    </ul>
 
     <div id="urlInputArea">
       <label>본문에 넣을 이미지 URL <input type="text" id="contentImageUrl"></label>
@@ -49,24 +83,22 @@
     <h3>댓글 추가</h3>
     <label>댓글 작성자 <input type="text" id="commentName"></label>
     <label>댓글 내용 <input type="text" id="commentText"></label>
-    <button onclick="addComment()">댓글 추가</button>
+    <div class="makecode-wrap"><button onclick="addComment()">댓글 추가</button></div>
 
     <h3>답글 추가</h3>
     <label>답글 작성자 <input type="text" id="replyName"></label>
     <label>답글 대상자 <input type="text" id="replyTo"></label>
     <label>답글 내용 <input type="text" id="replyText"></label>
-    <button onclick="addReply()">답글 추가</button>
+    <div class="makecode-wrap"><button onclick="addReply()">답글 추가</button> <button onclick="generateCard()">코드 생성</button></div>
 
-    <button onclick="generateCard()">생성</button>
+    
   </div>
-
-  <div class="output-area" id="preview"></div>
-  <div class="copycode-wrap">
-    <button class="copycode" onclick="copyCode()">코드 복사</button>
-    <button onclick="savePreviewAsImage()">이미지로 저장</button>
-  </div>
-  <textarea id="outputCode" rows="10" readonly></textarea>
-  <p style="font-size: .4em; color: rgb(214, 214, 214);">공공누리에 따라 완도군의 공공저작물 이용(https://www.wando.go.kr/wando/sub.cs?m=655)</p>
+</div>
+  
+<div class="copyrightt">
+  <p style="font-size: .4em; color: rgb(214, 214, 214); text-align: center;">
+      공공누리에 따라 완도군의 공공저작물 이용(https://www.wando.go.kr/wando/sub.cs?m=655)
+  </p>
 </div>
 
 
