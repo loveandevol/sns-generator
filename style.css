@@ -304,10 +304,10 @@ button:hover { background: #ff8f73; }
   .wrapper {
     flex-direction: column;
   }
-    .lnd-left {
-        width: 20%;
+.lnd-left {
+        width: 20% !important;
     }
-    .lnd-right {
-        width: 80%;
+.lnd-right {
+        width: 80% !important;
     }
 }
