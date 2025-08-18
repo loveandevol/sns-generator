@@ -2,7 +2,7 @@
 
     @font-face {
         font-family: 'WandocleanseaB';
-        src: url('/images/WandocleanseaB.ttf') format('truetype');
+        src: url('./images/WandocleanseaB.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
     }
@@ -360,5 +360,6 @@
           width: 80% !important;
       }
     }
+
 
 
