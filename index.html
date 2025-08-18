@@ -5,12 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SNS 스타일 카드 생성기</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
   <script src="https://kit.fontawesome.com/751d015302.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
+<button id="help-toggle-button" class="help-button">?</button>
+<div id="help-panel" class="help-panel">
+        <div class="help-panel-header">
+            <h2>도움말</h2>
+            <button id="help-close-button" class="close-button">&times;</button>
+        </div>
+        <div class="help-panel-content">
+            <p>이곳에 도움말 내용을 입력하세요.</p>
+            <p>예시: 이 웹사이트는 OOO 기능을 제공합니다. 자세한 사용법은 아래를 참고하세요.</p>
+            <ul>
+                <li>메뉴 1: 주요 기능</li>
+                <li>메뉴 2: 사용자 설정</li>
+                <li>메뉴 3: 문의하기</li>
+            </ul>
+        </div>
+    </div>
 <div class="wrapper">
   <div class="input-area">
     <h2>SNS 생성기</h2>
@@ -19,18 +36,16 @@
       <ol>
         <li>기본 정보를 입력해요.</li>
         <li>댓글 또는 답글을 추가해요.</li>
-        <li>코드 생성을 클릭 시 미리보기와 코드가 불러와져요!</li>
-        <li>이미지 업로드 후 편집 버튼으로 크롭/편집이 가능해요!</li>
+        <li>실시간으로 미리보기와 코드가 불러와져요!</li>
       </ol>
     </div>
     <div class="how-to-tip">
       <h5>TIPS</h5>
       <ol>
         <li>이미지 추가의 경우 코드로 이용할 때는 URL을, 이미지 저장으로 이용할 때는 업로드를 추천해요.</li>
-        <li>기본 정보는 수정 후 코드 생성을 재클릭하면 변경이 가능해요!</li>
         <li>댓글 또는 답글은 추가 버튼을 누른 순서대로 입력돼요.</li>
-        <li>댓글과 답글은 <b>수정, 삭제가 불가능</b>하며 새로 고침 후 처음부터 다시 입력해야 해요.</li>
-        <li>이미지 편집 기능으로 원하는 부분만 크롭하고 크기를 조정할 수 있어요!</li>
+        <li>댓글과 답글은 <b>수정이 불가능</b>하며 전체 삭제 후 처음부터 다시 입력해야 해요.</li>
+        <li>이미지 편집 기능으로 원하는 부분만 크롭하고 크기를 조정할 수 있어요.</li>
       </ol>
     </div>
 
@@ -105,7 +120,7 @@
     <label>답글 작성자 <input type="text" id="replyName"></label>
     <label>답글 대상자 <input type="text" id="replyTo"></label>
     <label>답글 내용 <input type="text" id="replyText"></label>
-    <div class="makecode-wrap"><button onclick="addReply()">답글 추가</button> <button onclick="generateCard()">코드 생성</button></div>
+    <div class="makecode-wrap"><button onclick="addReply()">답글 추가</button></div>
   </div>
 </div>
 
@@ -135,6 +150,7 @@
 
 </body>
 </html>
+
 
 
 
