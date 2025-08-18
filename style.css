@@ -71,9 +71,12 @@
     transition: right 0.4s ease-in-out;
     z-index: 1000;
     
-    /* 4번 요청: Flexbox로 레이아웃 설정 (푸터 하단 고정) */
+    /* [수정] Flexbox 레이아웃 설정 */
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
+    
+    /* [수정] 패널 자체에 스크롤 적용 */
+    overflow-y: auto;
 }
 
 /* 도움말 패널이 활성화되었을 때의 스타일 (보이는 상태) */
@@ -96,17 +99,13 @@
 /* 도움말 패널 내용 */
 .help-panel-content {
     padding: 0 20px;
-    overflow-y: auto; /* 내용이 길어지면 스크롤 생성 */
-    
-    /* 4번 요청: 남는 공간을 모두 차지하도록 설정 */
-    flex-grow: 1;
 }
 
-/* 4번 요청: 하단 저작권 푸터 스타일 */
+/* 하단 저작권 푸터 스타일 */
 .copyright {
     padding: 20px;
     border-top: 1px solid #ddd;
-    /* flex-shrink: 0; 푸터 크기 고정 */
+    margin-top: auto;
 }
 
     .wrapper {
@@ -430,6 +429,7 @@
           width: 80% !important;
       }
     }
+
 
 
 
