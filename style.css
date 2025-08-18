@@ -98,6 +98,9 @@
 
 /* 도움말 패널 내용 */
 .help-panel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
     padding: 25px 20px;
 }
 
@@ -283,7 +286,6 @@
     .commenter{ color: #c16a55; }
 
 .how-to-info {
- margin: 10px 0;
 }
 
     .how-to-info h5{
@@ -301,7 +303,6 @@
     }
 
     .how-to-tip{
-        margin: 10px 0;
     }
     .how-to-tip h5{
         font-size: 1em;
@@ -433,6 +434,7 @@
           width: 80% !important;
       }
     }
+
 
 
 
