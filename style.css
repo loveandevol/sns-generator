@@ -289,10 +289,15 @@
     }
 
     .crop-container {
-      max-width: 500px;
-      max-height: 400px;
-      margin: 20px 0;
-    }
+  max-width: 500px;
+  max-height: 400px;
+  margin: 20px 0;
+}
+
+.crop-container img {
+  display: block;
+  max-width: 100%;
+}
 
     .crop-buttons {
       display: flex;
@@ -355,3 +360,4 @@
           width: 80% !important;
       }
     }
+
