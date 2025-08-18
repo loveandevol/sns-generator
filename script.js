@@ -1,4 +1,7 @@
 let comments = [];
+let cropper = null;
+let currentCropType = ''; // 'icon' 또는 'content'
+let originalImageData = {}; // 원본 이미지 데이터 저장
 
 // 초기화
 document.addEventListener('DOMContentLoaded', function() {
@@ -7,17 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     radio.addEventListener("change", () => {
       document.getElementById("likeNamesLabel").style.display = 
         document.getElementById("likeYes").checked ? "block" : "none";
-      updatePreview(); // 실시간 업데이트 추가
+      updatePreview();
     });
-  });
-
-  // 이미지 타입 변경시에도 실시간 업데이트
-  document.getElementsByName("imageType").forEach(radio => {
-    radio.addEventListener("change", updatePreview);
-  });
-
-  document.getElementsByName("iconType").forEach(radio => {
-    radio.addEventListener("change", updatePreview);
   });
 
   // 입력 필드 변경시 실시간 업데이트
@@ -27,28 +21,141 @@ document.addEventListener('DOMContentLoaded', function() {
       element.addEventListener('input', updatePreview);
     }
   });
-
-  // 파일 입력 변경시 실시간 업데이트
-  ['iconFile', 'contentImageFile'].forEach(id => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.addEventListener('change', updatePreview);
-    }
-  });
 });
 
 function toggleImageInput() {
   const useUrl = document.querySelector('input[name="imageType"]:checked').value === 'url';
   document.getElementById("urlInputArea").style.display = useUrl ? "block" : "none";
   document.getElementById("fileInputArea").style.display = useUrl ? "none" : "block";
-  // 토글시에는 업데이트하지 않음 (파일이 선택되지 않은 상태일 수 있으므로)
 }
 
 function toggleIconInput() {
   const useUrl = document.querySelector('input[name="iconType"]:checked').value === 'url';
   document.getElementById("iconUrlInputArea").style.display = useUrl ? "block" : "none";
   document.getElementById("iconFileInputArea").style.display = useUrl ? "none" : "block";
-  // 토글시에는 업데이트하지 않음 (파일이 선택되지 않은 상태일 수 있으므로)
+}
+
+// 아이콘 파일 변경 처리
+function handleIconFileChange(input) {
+  const file = input.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      originalImageData.icon = e.target.result;
+      document.getElementById('iconEditBtn').style.display = 'inline-block';
+      updatePreview();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    document.getElementById('iconEditBtn').style.display = 'none';
+    delete originalImageData.icon;
+  }
+}
+
+// 컨텐츠 파일 변경 처리
+function handleContentFileChange(input) {
+  const file = input.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      originalImageData.content = e.target.result;
+      document.getElementById('contentEditBtn').style.display = 'inline-block';
+      updatePreview();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    document.getElementById('contentEditBtn').style.display = 'none';
+    delete originalImageData.content;
+  }
+}
+
+// 크롭 모달 열기
+function openCropModal(type) {
+  currentCropType = type;
+  const imageData = originalImageData[type];
+  
+  if (!imageData) {
+    alert('이미지를 먼저 선택해주세요.');
+    return;
+  }
+  
+  const cropImage = document.getElementById('cropImage');
+  cropImage.src = imageData;
+  
+  document.getElementById('cropModal').style.display = 'block';
+  
+  // 이미지가 로드된 후 cropper 초기화
+  cropImage.onload = function() {
+    // 기존 cropper 제거
+    if (cropper) {
+      cropper.destroy();
+    }
+    
+    // 타입에 따른 cropper 옵션 설정
+    const aspectRatio = type === 'icon' ? 1 : NaN; // 프로필은 1:1, 컨텐츠는 자유
+    
+    cropper = new Cropper(cropImage, {
+      aspectRatio: aspectRatio,
+      viewMode: 1,
+      dragMode: 'move',
+      autoCropArea: 0.8,
+      responsive: true,
+      restore: false,
+      checkOrientation: false,
+      modal: false,
+      guides: true,
+      center: true,
+      highlight: false,
+      cropBoxMovable: true,
+      cropBoxResizable: true,
+      toggleDragModeOnDblclick: false,
+    });
+  };
+}
+
+// 크롭 모달 닫기
+function closeCropModal() {
+  document.getElementById('cropModal').style.display = 'none';
+  if (cropper) {
+    cropper.destroy();
+    cropper = null;
+  }
+}
+
+// 크롭 적용
+function applyCrop() {
+  if (!cropper) {
+    alert('크롭 도구가 초기화되지 않았습니다.');
+    return;
+  }
+  
+  // 크롭된 이미지를 캔버스로 가져오기
+  const canvas = cropper.getCroppedCanvas({
+    maxWidth: 800,
+    maxHeight: 600,
+    fillColor: '#fff',
+    imageSmoothingEnabled: true,
+    imageSmoothingQuality: 'high',
+  });
+  
+  if (canvas) {
+    const croppedImageData = canvas.toDataURL('image/jpeg', 0.9);
+    
+    // 크롭된 이미지를 해당 타입에 저장
+    if (currentCropType === 'icon') {
+      originalImageData.iconCropped = croppedImageData;
+    } else if (currentCropType === 'content') {
+      originalImageData.contentCropped = croppedImageData;
+    }
+    
+    // 미리보기 업데이트
+    updatePreview();
+    
+    // 모달 닫기
+    closeCropModal();
+  } else {
+    alert('이미지 처리 중 오류가 발생했습니다.');
+  }
 }
 
 function addComment() {
@@ -64,9 +171,7 @@ function addComment() {
   document.getElementById("commentName").value = "";
   document.getElementById("commentText").value = "";
   
-  // 댓글 추가 후 즉시 미리보기 업데이트
   updatePreview();
-  
   console.log("댓글 추가됨:", { name, content });
 }
 
@@ -85,13 +190,10 @@ function addReply() {
   document.getElementById("replyTo").value = "";
   document.getElementById("replyText").value = "";
   
-  // 답글 추가 후 즉시 미리보기 업데이트
   updatePreview();
-  
   console.log("답글 추가됨:", { name, to, content });
 }
 
-// 댓글 삭제 기능 추가
 function clearAllComments() {
   if (comments.length === 0) {
     alert("삭제할 댓글이 없습니다.");
@@ -105,14 +207,11 @@ function clearAllComments() {
   }
 }
 
-// 통합된 미리보기 업데이트 함수
 function updatePreview() {
-  // 기본 필드들이 모두 비어있다면 미리보기를 업데이트하지 않음
   const name = document.getElementById("userName").value.trim();
   const content = document.getElementById("mainContent").value.trim();
   
   if (!name && !content) {
-    // 기본 정보가 없으면 미리보기 초기화
     document.getElementById("preview").innerHTML = "";
     document.getElementById("outputCode").value = "";
     return;
@@ -124,20 +223,12 @@ function updatePreview() {
     const icon = document.getElementById("iconUrl").value.trim();
     handleContentImage(icon);
   } else {
-    const file = document.getElementById("iconFile").files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        handleContentImage(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      handleContentImage("");
-    }
+    // 크롭된 이미지가 있으면 사용, 없으면 원본 사용
+    const iconData = originalImageData.iconCropped || originalImageData.icon || "";
+    handleContentImage(iconData);
   }
 }
 
-// 기존 generateCard 함수는 updatePreview의 별칭으로
 function generateCard() {
   updatePreview();
 }
@@ -153,26 +244,17 @@ function handleContentImage(icon) {
     const contentImg = document.getElementById("contentImageUrl").value.trim();
     renderCard(icon, name, content, contentImg, like, likeNames);
   } else {
-    const file = document.getElementById("contentImageFile").files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        renderCard(icon, name, content, e.target.result, like, likeNames);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      renderCard(icon, name, content, "", like, likeNames);
-    }
+    // 크롭된 이미지가 있으면 사용, 없으면 원본 사용
+    const contentImg = originalImageData.contentCropped || originalImageData.content || "";
+    renderCard(icon, name, content, contentImg, like, likeNames);
   }
 }
 
 function renderCard(icon, name, content, contentImg, like, likeNames) {
-  // 이름과 내용이 모두 비어있으면 렌더링하지 않음
   if (!name && !content) {
     return;
   }
   
-  // 빈 내용일 때 기본값 설정
   const displayName = name || "사용자명";
   const displayContent = content || "내용을 입력해주세요";
   
@@ -192,7 +274,6 @@ function renderCard(icon, name, content, contentImg, like, likeNames) {
     html += `<div class="lnd-sns-like"><span class="commenter">${likeNames}</span></div>`;
   }
 
-  // 댓글 렌더링
   comments.forEach((item, index) => {
     if (item.type === "comment") {
       html += `<p><span class="commenter">${item.name}</span>: ${item.content}</p>`;
@@ -206,7 +287,6 @@ function renderCard(icon, name, content, contentImg, like, likeNames) {
   document.getElementById("preview").innerHTML = html;
   document.getElementById("outputCode").value = html;
   
-  // 현재 댓글 상태 표시
   console.log(`현재 댓글 수: ${comments.length}`);
 }
 
@@ -245,3 +325,11 @@ function savePreviewAsImage() {
     alert("이미지 저장에 실패했습니다.");
   });
 }
+
+// 모달 외부 클릭시 닫기
+document.addEventListener('click', function(e) {
+  const modal = document.getElementById('cropModal');
+  if (e.target === modal) {
+    closeCropModal();
+  }
+});
