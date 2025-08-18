@@ -18,6 +18,7 @@
         <li>기본 정보를 입력해요.</li>
         <li>댓글 또는 답글을 추가해요.</li>
         <li>코드 생성을 클릭 시 미리보기와 코드가 불러와져요!</li>
+        <li>이미지 업로드 후 편집 버튼으로 크롭/편집이 가능해요!</li>
       </ol>
     </div>
     <div class="how-to-tip">
@@ -27,6 +28,7 @@
         <li>기본 정보는 수정 후 코드 생성을 재클릭하면 변경이 가능해요!</li>
         <li>댓글 또는 답글은 추가 버튼을 누른 순서대로 입력돼요.</li>
         <li>댓글과 답글은 <b>수정, 삭제가 불가능</b>하며 새로 고침 후 처음부터 다시 입력해야 해요.</li>
+        <li>이미지 편집 기능으로 원하는 부분만 크롭하고 크기를 조정할 수 있어요!</li>
       </ol>
     </div>
 
@@ -40,7 +42,6 @@
     </div>
 
     <textarea id="outputCode" rows="10" readonly></textarea>
-
     
   </div>
 
@@ -51,13 +52,17 @@
       <li class="nonelist"><label><input type="radio" name="iconType" value="upload" onclick="toggleIconInput()"> 파일 업로드</label></li>
     </ul>
     
-
     <div id="iconUrlInputArea">
       <label>프로필 사진 URL <input type="text" id="iconUrl"></label>
     </div>
 
     <div id="iconFileInputArea" style="display: none;">
-      <label>이미지 업로드 <input type="file" id="iconFile" accept="image/*"></label>
+      <div class="file-input-wrapper">
+        <label>이미지 업로드 
+          <input type="file" id="iconFile" accept="image/*" onchange="handleIconFileChange(this)">
+          <button type="button" class="crop-edit-button" id="iconEditBtn" style="display: none;" onclick="openCropModal('icon')">편집</button>
+        </label>
+      </div>
     </div>
 
     <label>이름 <input type="text" id="userName"></label>
@@ -72,7 +77,12 @@
     </div>
 
     <div id="fileInputArea" style="display: none;">
-      <label>이미지 업로드 <input type="file" id="contentImageFile" accept="image/*"></label>
+      <div class="file-input-wrapper">
+        <label>이미지 업로드 
+          <input type="file" id="contentImageFile" accept="image/*" onchange="handleContentFileChange(this)">
+          <button type="button" class="crop-edit-button" id="contentEditBtn" style="display: none;" onclick="openCropModal('content')">편집</button>
+        </label>
+      </div>
     </div>
 
     <label>좋아요 표시 여부:
@@ -84,16 +94,30 @@
     <h3>댓글 추가</h3>
     <label>댓글 작성자 <input type="text" id="commentName"></label>
     <label>댓글 내용 <input type="text" id="commentText"></label>
-    <div class="makecode-wrap"><button onclick="addComment()">댓글 추가</button>
-  <button onclick="clearAllComments()" style="background: #ff6b6b;">전체 삭제</button></div>
+    <div class="makecode-wrap">
+      <button onclick="addComment()">댓글 추가</button>
+      <button onclick="clearAllComments()" style="background: #ff6b6b;">전체 삭제</button>
+    </div>
 
     <h3>답글 추가</h3>
     <label>답글 작성자 <input type="text" id="replyName"></label>
     <label>답글 대상자 <input type="text" id="replyTo"></label>
     <label>답글 내용 <input type="text" id="replyText"></label>
     <div class="makecode-wrap"><button onclick="addReply()">답글 추가</button> <button onclick="generateCard()">코드 생성</button></div>
+  </div>
+</div>
 
-    
+<!-- 크롭 모달 -->
+<div id="cropModal" class="crop-modal">
+  <div class="crop-modal-content">
+    <h3>이미지 편집</h3>
+    <div class="crop-container">
+      <img id="cropImage" style="max-width: 100%;">
+    </div>
+    <div class="crop-buttons">
+      <button class="crop-button cancel" onclick="closeCropModal()">취소</button>
+      <button class="crop-button" onclick="applyCrop()">적용</button>
+    </div>
   </div>
 </div>
   
@@ -109,4 +133,5 @@
 
 </body>
 </html>
+
 
