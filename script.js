@@ -343,3 +343,25 @@ document.addEventListener('click', function(e) {
   }
 });
 
+// HTML 요소들을 가져옵니다.
+const helpToggleButton = document.getElementById('help-toggle-button');
+const helpPanel = document.getElementById('help-panel');
+const helpCloseButton = document.getElementById('help-close-button');
+
+// 오른쪽 상단 버튼 클릭 시 패널을 열고 닫습니다.
+helpToggleButton.addEventListener('click', () => {
+    helpPanel.classList.toggle('active');
+});
+
+// 패널 안의 닫기 버튼 클릭 시 패널을 닫습니다.
+helpCloseButton.addEventListener('click', () => {
+    helpPanel.classList.remove('active');
+});
+
+// 패널 바깥 영역 클릭 시 패널을 닫습니다. (선택 사항)
+document.addEventListener('click', (event) => {
+    // 클릭한 영역이 패널 내부나 토글 버튼이 아닐 경우
+    if (!helpPanel.contains(event.target) && !helpToggleButton.contains(event.target)) {
+        helpPanel.classList.remove('active');
+    }
+});
