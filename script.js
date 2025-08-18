@@ -41,14 +41,14 @@ function toggleImageInput() {
   const useUrl = document.querySelector('input[name="imageType"]:checked').value === 'url';
   document.getElementById("urlInputArea").style.display = useUrl ? "block" : "none";
   document.getElementById("fileInputArea").style.display = useUrl ? "none" : "block";
-  updatePreview(); // 토글시에도 업데이트
+  // 토글시에는 업데이트하지 않음 (파일이 선택되지 않은 상태일 수 있으므로)
 }
 
 function toggleIconInput() {
   const useUrl = document.querySelector('input[name="iconType"]:checked').value === 'url';
   document.getElementById("iconUrlInputArea").style.display = useUrl ? "block" : "none";
   document.getElementById("iconFileInputArea").style.display = useUrl ? "none" : "block";
-  updatePreview(); // 토글시에도 업데이트
+  // 토글시에는 업데이트하지 않음 (파일이 선택되지 않은 상태일 수 있으므로)
 }
 
 function addComment() {
@@ -107,6 +107,17 @@ function clearAllComments() {
 
 // 통합된 미리보기 업데이트 함수
 function updatePreview() {
+  // 기본 필드들이 모두 비어있다면 미리보기를 업데이트하지 않음
+  const name = document.getElementById("userName").value.trim();
+  const content = document.getElementById("mainContent").value.trim();
+  
+  if (!name && !content) {
+    // 기본 정보가 없으면 미리보기 초기화
+    document.getElementById("preview").innerHTML = "";
+    document.getElementById("outputCode").value = "";
+    return;
+  }
+  
   const iconType = document.querySelector('input[name="iconType"]:checked').value;
   
   if (iconType === "url") {
@@ -156,6 +167,11 @@ function handleContentImage(icon) {
 }
 
 function renderCard(icon, name, content, contentImg, like, likeNames) {
+  // 이름과 내용이 모두 비어있으면 렌더링하지 않음
+  if (!name && !content) {
+    return;
+  }
+  
   // 빈 내용일 때 기본값 설정
   const displayName = name || "사용자명";
   const displayContent = content || "내용을 입력해주세요";
