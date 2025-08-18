@@ -38,6 +38,54 @@
     }
     li.nonelist{display: inline-block;}
 
+/* 도움말 패널 기본 스타일 (숨겨진 상태) */
+.help-panel {
+    position: fixed;
+    top: 0;
+    right: -350px; /* 화면 오른쪽 밖에 위치시켜 숨김 */
+    width: 300px;
+    height: 100%;
+    background-color: #f9f9f9;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    transition: right 0.4s ease-in-out; /* 부드러운 슬라이드 효과 */
+    z-index: 1000;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 도움말 패널이 활성화되었을 때의 스타일 (보이는 상태) */
+.help-panel.active {
+    right: 0; /* 화면 오른쪽 끝에 붙도록 위치 변경 */
+}
+
+/* 도움말 패널 헤더 */
+.help-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.help-panel-header h2 {
+    margin: 0;
+}
+
+/* 닫기 버튼 */
+.close-button {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* 도움말 패널 내용 */
+.help-panel-content {
+    overflow-y: auto; /* 내용이 길어지면 스크롤 생성 */
+}
+
     .wrapper {
         max-width: 900px;
         width: 90%;
@@ -360,6 +408,7 @@
           width: 80% !important;
       }
     }
+
 
 
 
