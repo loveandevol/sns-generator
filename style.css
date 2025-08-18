@@ -46,7 +46,7 @@
     z-index: 1001; /* 다른 요소들보다 위에 보이도록 설정 */
     
     /* 디자인 변경 */
-    background-color: #007bff;
+    background-color: var(--accent-color);
     color: white;
     border: none;
     border-radius: 20px; /* 원형 -> 둥근 사각형 */
@@ -86,7 +86,7 @@
 
 /* 도움말 패널 헤더 */
 .help-panel-header {
-    padding: 20px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -98,7 +98,7 @@
 
 /* 도움말 패널 내용 */
 .help-panel-content {
-    padding: 0 20px;
+    padding: 25px 20px;
 }
 
 /* 하단 저작권 푸터 스타일 */
@@ -282,6 +282,10 @@
     }
     .commenter{ color: #c16a55; }
 
+.how-to-info {
+ margin: 10px 0;
+}
+
     .how-to-info h5{
         font-size: 1em;
         margin: 0;
@@ -429,6 +433,7 @@
           width: 80% !important;
       }
     }
+
 
 
 
