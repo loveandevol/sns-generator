@@ -268,28 +268,37 @@ function renderCard(icon, name, content, contentImg, like, likeNames) {
     html += `<br><img src="${contentImg}" alt="content image">`;
   }
 
-  html += `</div><div class="lnd-sns-comment">`;
+  html += `</div>`; // .lnd-sns-content 닫는 태그
 
-  if (like && likeNames) {
-    html += `<div class="lnd-sns-like"><span class="commenter">${likeNames}</span></div>`;
+  // ▼▼▼▼▼ 여기부터 수정 ▼▼▼▼▼
+  // 좋아요(이름 포함) 또는 댓글이 하나라도 있을 경우에만 lnd-sns-comment 컨테이너를 생성합니다.
+  const hasInteraction = (like && likeNames) || comments.length > 0;
+
+  if (hasInteraction) {
+    html += `<div class="lnd-sns-comment">`;
+
+    if (like && likeNames) {
+      html += `<div class="lnd-sns-like"><span class="commenter">${likeNames}</span></div>`;
+    }
+  
+    comments.forEach((item, index) => {
+      if (item.type === "comment") {
+        html += `<p><span class="commenter">${item.name}</span>: ${item.content}</p>`;
+      } else if (item.type === "reply") {
+        html += `<p><span class="commenter">${item.name}</span> to <span class="commenter">${item.to}</span>: ${item.content}</p>`;
+      }
+    });
+  
+    html += `</div>`; // .lnd-sns-comment 닫는 태그
   }
 
-  comments.forEach((item, index) => {
-    if (item.type === "comment") {
-      html += `<p><span class="commenter">${item.name}</span>: ${item.content}</p>`;
-    } else if (item.type === "reply") {
-      html += `<p><span class="commenter">${item.name}</span> to <span class="commenter">${item.to}</span>: ${item.content}</p>`;
-    }
-  });
-
-  html += `</div></div></div>`;
+  html += `</div></div>`; // .lnd-right와 .lnd-sns 닫는 태그
 
   document.getElementById("preview").innerHTML = html;
   document.getElementById("outputCode").value = html;
   
   console.log(`현재 댓글 수: ${comments.length}`);
 }
-
 function copyCode() {
   const code = document.getElementById("outputCode");
   code.select();
@@ -333,3 +342,4 @@ document.addEventListener('click', function(e) {
     closeCropModal();
   }
 });
+
