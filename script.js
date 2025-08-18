@@ -348,20 +348,37 @@ const helpToggleButton = document.getElementById('help-toggle-button');
 const helpPanel = document.getElementById('help-panel');
 const helpCloseButton = document.getElementById('help-close-button');
 
-// 오른쪽 상단 버튼 클릭 시 패널을 열고 닫습니다.
+// 패널의 열림/닫힘 상태에 따라 버튼 내용을 변경하는 함수
+function updateButtonContent() {
+    // 3번 요청: 패널이 열려있는지(.active 클래스 확인) 확인
+    if (helpPanel.classList.contains('active')) {
+        // 열려있을 때
+        helpToggleButton.innerHTML = '닫기<i class="fa-solid fa-angles-right"></i>';
+    } else {
+        // 닫혀있을 때
+        helpToggleButton.innerHTML = '<i class="fa-solid fa-angles-left"></i>도움말';
+    }
+}
+
+// 오른쪽 상단 버튼 클릭 시
 helpToggleButton.addEventListener('click', () => {
     helpPanel.classList.toggle('active');
+    updateButtonContent(); // 버튼 내용 업데이트 함수 호출
 });
 
-// 패널 안의 닫기 버튼 클릭 시 패널을 닫습니다.
+// 패널 안의 닫기 버튼 클릭 시
 helpCloseButton.addEventListener('click', () => {
     helpPanel.classList.remove('active');
+    updateButtonContent(); // 버튼 내용 업데이트 함수 호출
 });
 
-// 패널 바깥 영역 클릭 시 패널을 닫습니다. (선택 사항)
+// 패널 바깥 영역 클릭 시
 document.addEventListener('click', (event) => {
-    // 클릭한 영역이 패널 내부나 토글 버튼이 아닐 경우
     if (!helpPanel.contains(event.target) && !helpToggleButton.contains(event.target)) {
-        helpPanel.classList.remove('active');
+        if (helpPanel.classList.contains('active')) {
+            helpPanel.classList.remove('active');
+            updateButtonContent(); // 버튼 내용 업데이트 함수 호출
+        }
     }
 });
+
