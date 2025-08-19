@@ -335,7 +335,26 @@
       top: 0;
       line-height: 1.5;
     }
-
+.how-to-tistory ol {
+        font-size: .9em;
+        padding: 0;
+        margin: 0;
+        list-style-position: inside;
+    }
+    .how-to-tistory li {
+        margin: 6px 0;
+    }
+.how-to-tistory i {
+ font-size: 1em;
+ color: var(--accent-color);
+ line-height: 1.5;
+}
+.how-to-tistory code{
+ background-color: #eee;
+  border-radius: 3px;
+  font-family: courier, monospace;
+  padding: 0 3px;
+}
 
     /* 크롭 모달 스타일 */
     .crop-modal {
@@ -434,6 +453,7 @@
           width: 80% !important;
       }
     }
+
 
 
 
