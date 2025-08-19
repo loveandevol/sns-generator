@@ -11,6 +11,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
   <script src="https://kit.fontawesome.com/751d015302.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </head>
 <body>
 <button id="help-toggle-button" class="help-button">
@@ -51,15 +54,15 @@
                   <li>스킨편집→html 편집→파일 업로드</li>
                   <li>다운로드한 서체 업로드</li>
                   <li>CSS 최상단에 아래 코드 삽입<br>
-                    <code>@font-face {
+                    <pre><code class="language-css">@font-face {
     font-family: 'WandocleanseaB';
     src: url('images/WandocleanseaB.ttf') ;
     font-weight: normal;
     font-style: normal;
-}</code>
+}</code></pre>
                   </li>
-                  <li>HTML의 <code>&lt;/head&gt;</code>안 <code></code>위에 아래 코드 삽입<br>
-                    <code>&lt;link rel=&quot;stylesheet&quot; as=&quot;style&quot; crossorigin href=&quot;https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-jp-dynamic-subset.min.css&quot; /&gt;</code>
+                  <li>HTML의 <code class="language-html">&lt;/head&gt;</code>안 <code></code>위에 아래 코드 삽입<br>
+                    <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; as=&quot;style&quot; crossorigin href=&quot;https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-jp-dynamic-subset.min.css&quot; /&gt;</code></pre>
                   </li>
                 </ol>
               </li>
@@ -173,6 +176,7 @@
 
 </body>
 </html>
+
 
 
 
