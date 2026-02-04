@@ -301,9 +301,29 @@ function renderCard(icon, name, content, contentImg, like, likeNames) {
 }
 function copyCode() {
   const code = document.getElementById("outputCode");
-  code.select();
-  code.setSelectionRange(0, 99999);
-  
+  const textToCopy = code.value; // 화면 선택이 아닌 값 자체를 가져옵니다.
+
+  // 1. 최신 방식 (Clipboard API) - 데이터 자체를 복사하므로 잘리지 않음
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        alert("코드가 복사되었습니다!");
+      })
+      .catch(err => {
+        // 권한 문제 등으로 실패할 경우 기존 방식으로 시도
+        console.error("Clipboard API 실패, 기존 방식으로 시도합니다.", err);
+        fallbackCopy(code);
+      });
+  } else {
+    // 2. 구형 브라우저 등을 위한 예비 방식
+    fallbackCopy(code);
+  }
+}
+
+// 예비용 복사 함수 (기존 방식 개선)
+function fallbackCopy(element) {
+  element.select();
+  element.setSelectionRange(0, 999999); // 모바일 등에서 선택 범위 확장
   try {
     document.execCommand("copy");
     alert("코드가 복사되었습니다!");
@@ -381,4 +401,5 @@ document.addEventListener('click', (event) => {
         }
     }
 });
+
 
