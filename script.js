@@ -403,3 +403,43 @@ document.addEventListener('click', (event) => {
 });
 
 
+// ▼▼▼▼▼ 이미지 확대 보기 기능 ▼▼▼▼▼
+document.addEventListener('DOMContentLoaded', function() {
+    const overlay = document.getElementById('imageOverlay');
+    const expandedImg = document.getElementById('expandedImg');
+    const previewArea = document.getElementById('preview');
+
+    // 1. 미리보기 영역 안의 이미지를 클릭했을 때
+    previewArea.addEventListener('click', function(e) {
+        let imageUrl = '';
+
+        // 클릭한 요소가 본문 이미지(img 태그)인 경우
+        if (e.target.tagName === 'IMG') {
+            imageUrl = e.target.src;
+        } 
+        // 클릭한 요소가 프로필 아이콘(div 태그)인 경우
+        else if (e.target.classList.contains('lnd-sns-icon')) {
+            // background-image 스타일에서 URL만 추출
+            const bgImage = window.getComputedStyle(e.target).backgroundImage;
+            // url("...") 형태에서 주소만 쏙 빼냄
+            imageUrl = bgImage.slice(4, -1).replace(/["']/g, "");
+        }
+
+        // 이미지가 감지되었다면 모달 열기
+        if (imageUrl && imageUrl !== 'none') {
+            expandedImg.src = imageUrl;
+            overlay.style.display = 'flex';
+        }
+    });
+
+    // 2. 모달 배경(overlay)을 클릭하면 닫기
+    overlay.addEventListener('click', function(e) {
+        // 이미지 자체가 아닌 '바깥 배경'을 클릭했을 때만 닫힘
+        if (e.target === overlay) {
+            overlay.style.display = 'none';
+        }
+    });
+});
+
+
+
