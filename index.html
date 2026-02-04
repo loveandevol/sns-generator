@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>임천그램</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-jp-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+  <script src="https://kit.fontawesome.com/751d015302.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+<button id="help-toggle-button" class="help-button">
+        <i class="fa-solid fa-angles-left"></i>도움말
+    </button>
+
+    <div id="help-panel" class="help-panel">
+        <div class="help-panel-header">
+            <h2>도움말</h2>
+            <button id="help-close-button" class="close-button">&times;</button>
+        </div>
+        <div class="help-panel-content">
+          <div class="how-to-info">
+            <h5>사용 방법</h5>
+            <ol>
+              <li>기본 정보를 입력해요.</li>
+              <li>댓글 또는 답글을 추가해요.</li>
+              <li>실시간으로 미리보기와 코드가 불러와져요!</li>
+            </ol>
+          </div>
+          <div class="how-to-tip">
+            <h5>TIPS</h5>
+            <ol>
+              <li>이미지 추가의 경우 코드로 이용할 때는 URL을, 이미지 저장으로 이용할 때는 업로드를 추천해요.</li>
+              <li>댓글 또는 답글은 추가 버튼을 누른 순서대로 입력돼요.</li>
+              <li>댓글과 답글은 <b>수정이 불가능</b>하며 전체 삭제 후 처음부터 다시 입력해야 해요.</li>
+              <li>이미지 편집 기능으로 원하는 부분만 크롭하고 크기를 조정할 수 있어요.</li>
+            </ol>
+          </div>
+          <details class="how-to-tistory">
+            <summary>티스토리에 적용하는 법</summary>
+            <ol>
+              <li>글쓰기>오른쪽 상단 더보기 클릭>HTML 블럭</li>
+              <li>복사한 코드 붙여넣기</li>
+              <li>폰트 불러오기
+                <ol>
+                  <li>완도청정바다체 다운로드(<a href="https://www.wando.go.kr/wando/sub.cs?m=655"><i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                  <li>스킨편집→html 편집→파일 업로드</li>
+                  <li>다운로드한 서체 업로드</li>
+                  <li>CSS 최상단에 아래 코드 삽입<br>
+                    <pre><code class="language-css">@font-face {
+    font-family: 'WandocleanseaB';
+    src: url('images/WandocleanseaB.ttf') ;
+    font-weight: normal;
+    font-style: normal;
+}</code></pre>
+                  </li>
+                  <li>HTML의 <code class="language-html">&lt;/head&gt;</code>안 <code></code>위에 아래 코드 삽입<br>
+                    <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; as=&quot;style&quot; crossorigin href=&quot;https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-jp-dynamic-subset.min.css&quot; /&gt;</code></pre>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </details>
+        </div>
+
+        <div class="copyright">
+            <p style="font-size: .8em; color: #888; text-align: center;">
+              폰트정보<br>
+                공공누리에 따라 완도군의 공공저작물 이용(https://www.wando.go.kr/wando/sub.cs?m=655)
+            </p>
+        </div>
+    </div>
+<div class="wrapper">
+  <div class="input-area">
+    <h2>SNS 생성기</h2>
+
+    <div class="preview-outline">
+    <div class="output-area" id="preview"></div>
+    </div>
+
+    <div class="copycode-wrap">
+      <button class="copycode" onclick="copyCode()">코드 복사</button>
+      <button onclick="savePreviewAsImage()">이미지로 저장</button>
+    </div>
+
+    <textarea id="outputCode" rows="10" readonly></textarea>
+    
+  </div>
+
+  <div class="output-wrapper">
+    <h3>기본 정보</h3>
+    <ul>프로필 이미지 추가 방식:
+      <li class="nonelist"><label><input type="radio" name="iconType" value="url" checked onclick="toggleIconInput()"> URL로 입력</label></li>
+      <li class="nonelist"><label><input type="radio" name="iconType" value="upload" onclick="toggleIconInput()"> 파일 업로드</label></li>
+    </ul>
+    
+    <div id="iconUrlInputArea">
+      <label>프로필 사진 URL <input type="text" id="iconUrl"></label>
+    </div>
+
+    <div id="iconFileInputArea" style="display: none;">
+      <div class="file-input-wrapper">
+        <label>이미지 업로드 
+          <input type="file" id="iconFile" accept="image/*" onchange="handleIconFileChange(this)">
+          <button type="button" class="crop-edit-button" id="iconEditBtn" style="display: none;" onclick="openCropModal('icon')">편집</button>
+        </label>
+      </div>
+    </div>
+
+    <label>이름 <input type="text" id="userName"></label>
+    <label>내용 <input type="text" id="mainContent"></label>
+    <ul>본문 이미지 추가 방식:
+      <li class="nonelist"><label><input type="radio" name="imageType" value="url" checked onclick="toggleImageInput()"> URL로 입력</label></li>
+      <li class="nonelist"><label><input type="radio" name="imageType" value="upload" onclick="toggleImageInput()"> 파일 업로드</label></li>
+    </ul>
+
+    <div id="urlInputArea">
+      <label>본문에 넣을 이미지 URL <input type="text" id="contentImageUrl"></label>
+    </div>
+
+    <div id="fileInputArea" style="display: none;">
+      <div class="file-input-wrapper">
+        <label>이미지 업로드 
+          <input type="file" id="contentImageFile" accept="image/*" onchange="handleContentFileChange(this)">
+          <button type="button" class="crop-edit-button" id="contentEditBtn" style="display: none;" onclick="openCropModal('content')">편집</button>
+        </label>
+      </div>
+    </div>
+
+    <label>좋아요 표시 여부:
+      <input type="radio" name="like" value="yes" id="likeYes"> 예
+      <input type="radio" name="like" value="no" id="likeNo" checked> 아니오
+    </label>
+    <label id="likeNamesLabel" style="display:none;">좋아요 누른 사람들 이름 <input type="text" id="likeNames"></label>
+
+    <h3>댓글 추가</h3>
+    <label>댓글 작성자 <input type="text" id="commentName"></label>
+    <label>댓글 내용 <input type="text" id="commentText"></label>
+    <div class="makecode-wrap">
+      <button onclick="addComment()">댓글 추가</button>
+      <button onclick="clearAllComments()" style="background: #ff6b6b;">전체 삭제</button>
+    </div>
+
+    <h3>답글 추가</h3>
+    <label>답글 작성자 <input type="text" id="replyName"></label>
+    <label>답글 대상자 <input type="text" id="replyTo"></label>
+    <label>답글 내용 <input type="text" id="replyText"></label>
+    <div class="makecode-wrap"><button onclick="addReply()">답글 추가</button></div>
+  </div>
+</div>
+
+<!-- 크롭 모달 -->
+<div id="cropModal" class="crop-modal">
+  <div class="crop-modal-content">
+    <h3>이미지 편집</h3>
+    <div class="crop-container">
+      <img id="cropImage" style="max-width: 100%;">
+    </div>
+    <div class="crop-buttons">
+      <button class="crop-button cancel" onclick="closeCropModal()">취소</button>
+      <button class="crop-button" onclick="applyCrop()">적용</button>
+    </div>
+  </div>
+</div>
+
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
