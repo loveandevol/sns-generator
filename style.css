@@ -454,6 +454,41 @@
       }
     }
 
+/* ▼▼▼▼▼ 이미지 확대 모달 스타일 ▼▼▼▼▼ */
+.image-overlay {
+    display: none; /* 평소에는 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* 배경을 약간 어둡게 */
+    backdrop-filter: blur(10px); /* 배경 블러 처리 (핵심) */
+    z-index: 9999; /* 제일 위에 표시 */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* 배경 클릭 시 닫힘 암시 */
+}
+
+.image-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    cursor: default; /* 이미지는 클릭해도 반응 없음을 암시 */
+    transition: transform 0.2s;
+}
+
+/* 미리보기 영역의 이미지들에 마우스 오버 시 클릭 가능 표시 */
+.lnd-sns-icon, 
+.lnd-sns-content img {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.lnd-sns-icon:hover, 
+.lnd-sns-content img:hover {
+    opacity: 0.9;
+}
 
 
 
