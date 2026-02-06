@@ -218,77 +218,181 @@
     }
     button:hover { background: #ff8f73; }
 
-    .lnd-sns{
-        display: flex;
-        justify-content: flex-start;
-        margin: 6px 0;
-        font-size: 12px;
-    }
-    .lnd-left{ width: 15%; }
-    .lnd-right{ width: 85%; padding-left: 15px; }
-    .lnd-sns-icon{
-        display: block;
-        width: 60px;
-        max-width: 100%;
-        aspect-ratio: 1 / 1;
-        background-size: cover;
-        background-position: center;
-        border-radius: 50%;
-        flex-shrink: 0;
-    }
-    .lnd-sns-name{
-        font-size: 1.6em;
-        font-family: 'WandocleanseaB', sans-serif;
-        color: #c16a55;
-        line-height: 1;
-        margin-bottom: 8px;
-        margin-top: 2px;
-    }
-    .lnd-sns-content{
-        font-family: "Pretendard Variable", "Pretendard JP Variable";
-        font-size: 1.3em;
-        font-weight: 500;
-        line-height: 1.5;
-    }
-    .lnd-sns-content img {
+  .lnd-sns{
+    display: flex;
+    justify-content: flex-start;
+		margin: 6px 0;
+		width: 500px;
+		margin-right: auto;
+		margin-left: auto;
+}
+.lnd-left{
+    width: 12%;
+}
+.lnd-right{
+    width: 88%;
+    padding-left: 15px;
+}
+
+.lnd-sns-icon{
+    content: "";
+    display: block;
+    width: 60px;
+    aspect-ratio: 1 / 1;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.lnd-sns-name{
+    font-size: 1.6em;
+    font-family: 'WandocleanseaB';
+    color: #c16a55;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.lnd-sns-content{
+    font-family: "Pretendard Variable", "Pretendard JP Variable";
+    font-size: 1.3em;
+    font-weight: 500;
+    line-height: 1.5;
+		color: #59575C;
+}
+.lnd-sns-content img {
         max-width: 90%;
-        max-height: 200px;
+        max-height: 250px;
         margin-top: 8px;
     }
-    .lnd-sns-comment{
-        background-color: #eae9ee80;
-        font-family: "Pretendard Variable", "Pretendard JP Variable";
-        font-size: 1.3em;
-        font-weight: 500;
-        padding: 10px;
-        margin: 10px 0;
-    }
-    .lnd-sns-comment p{
-        line-height: 1.5;
-        padding: 0;
-        margin: 0;
-    }
-.lnd-sns-like {
+
+.lnd-sns-comment{
+    background-color: #eae9ee80;
+    font-family: "Pretendard Variable", "Pretendard JP Variable";
+    font-size: 1.3em;
+    font-weight: 500;
+    padding: 10px;
+    margin: 10px 0;
+}
+.lnd-sns-comment p{
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+		color: #59575C;
+}
+
+/* .lnd-sns-comment i{
+    color: #eb6b6a;
+    font-size: 1.5em;
+    margin-right: 15px;
+} */
+.lnd-sns-like{
     border-bottom: 1px solid rgb(214, 214, 214);
-    line-height: 1.6
-    display: block;
+    line-height: 100%;
+    display: flex;
+    align-items: center;
     padding: 5px 0 10px 0;
     margin-bottom: 10px;
 }
 
-.lnd-sns-like::before {
+.lnd-sns-like::before{
     content: "\f004";
     font-family: "FontAwesome";
     color: #eb6b6a;
     font-size: 1.5em;
-    margin-right: 8px;
-    
-    display: inline-block;
-    vertical-align: middle;
-    position: relative;
-    top: -2px;
+    margin-right: 13px;
 }
-    .commenter{ color: #c16a55; }
+
+.commenter{
+    color: #c16a55;
+}
+
+.mahiru{
+    background-image: url("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcH4jus%2FbtsMEeKTpWL%2F0eGPHQ4M0DXbeeTmIuQ37k%2Fimg.png");
+}
+
+.homura{
+    background-image: url("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FVj64F%2FbtsMF7D3Dql%2FNWrUy6Xx5kJaykDKNm49IK%2Fimg.png");
+}
+
+@media (max-width: 600px){
+	.lnd-sns{width: auto;}
+    .lnd-left{width: 15%; margin-left: 5px;}
+    .lnd-right{width: 85%; padding-left: 8px;}
+    .lnd-sns-icon{width: 45px;}
+    .lnd-sns-name{font-size: 1.4em; margin-bottom: 7px;}
+    .lnd-sns-comment{font-size: 1.15em; letter-spacing: .5px; padding: 10px 9px;}
+		.lnd-sns-content{font-size: 1.25em; letter-spacing: .5px;}
+		.lnd-sns-content img { max-height: 150px; max-width: 240px;}
+
+}
+/* 1. 애니메이션 정의 (0.5초 동안 투명->불투명, 블러 0->20px) */
+@keyframes fadeInBlur {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px); /* 아이폰용 */
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px); /* 아이폰용 */
+    }
+}
+
+/* 2. 이미지 확대 모달 스타일 */
+.image-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    
+    /* ▼▼▼ 애니메이션 적용 부분 (0.5초) ▼▼▼ */
+    animation: fadeInBlur 0.2s ease-out forwards;
+		will-change: opacity, backdrop-filter;
+    
+    /* 기본 상태 (애니메이션이 끝난 후 유지될 상태) */
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* 3. 노이즈 텍스처 (이전과 동일) */
+.image-overlay::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    background-size: 150px;
+    pointer-events: none; 
+    z-index: -1;
+}
+
+.image-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 10px 30px rgba(255,255,255,0.5);
+    cursor: default;    
+    position: relative;
+    z-index: 1;
+}
+
+.lnd-sns-icon, 
+.lnd-sns-content img {
+    cursor: pointer;
+}
 
 .how-to-info {
 }
@@ -445,61 +549,3 @@
     .crop-edit-button:hover {
       background: #45a049;
     }
-
-    @media (max-width: 768px) {
-      .wrapper {
-        flex-direction: column;
-      }
-      .lnd-left {
-          width: 20% !important;
-          flex-shrink: 0;
-      }
-      .lnd-right {
-          width: 80% !important;
-      }
-    }
-
-/* ▼▼▼▼▼ 이미지 확대 모달 스타일 ▼▼▼▼▼ */
-.image-overlay {
-    display: none; /* 평소에는 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* 배경을 약간 어둡게 */
-    backdrop-filter: blur(10px); /* 배경 블러 처리 (핵심) */
-    z-index: 9999; /* 제일 위에 표시 */
-    justify-content: center;
-    align-items: center;
-    cursor: pointer; /* 배경 클릭 시 닫힘 암시 */
-}
-
-.image-overlay img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    cursor: default; /* 이미지는 클릭해도 반응 없음을 암시 */
-    transition: transform 0.2s;
-}
-
-/* 미리보기 영역의 이미지들에 마우스 오버 시 클릭 가능 표시 */
-.lnd-sns-icon, 
-.lnd-sns-content img {
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-.lnd-sns-icon:hover, 
-.lnd-sns-content img:hover {
-    opacity: 0.9;
-}
-
-
-
-
-
-
-
-
-
