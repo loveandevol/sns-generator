@@ -274,7 +274,7 @@ function renderCard(icon, name, content, contentImg, like, likeNames) {
   // 좋아요(이름 포함) 또는 댓글이 하나라도 있을 경우에만 lnd-sns-comment 컨테이너를 생성합니다.
   const hasInteraction = (like && likeNames) || comments.length > 0;
 
-  if (hasInteraction) {
+if (hasInteraction) {
     html += `<div class="lnd-sns-comment">`;
 
     if (like && likeNames) {
@@ -283,9 +283,10 @@ function renderCard(icon, name, content, contentImg, like, likeNames) {
   
     comments.forEach((item, index) => {
       if (item.type === "comment") {
-        html += `<p><span class="commenter">${item.name}</span>: ${item.content}</p>`;
+        html += `<div class="lnd-text"><span class="commenter">${item.name}</span>: ${item.content}</div>`;
       } else if (item.type === "reply") {
-        html += `<p><span class="commenter">${item.name}</span> to <span class="commenter">${item.to}</span>: ${item.content}</p>`;
+        // [수정됨] p 태그 -> div class="lnd-text"
+        html += `<div class="lnd-text"><span class="commenter">${item.name}</span> to <span class="commenter">${item.to}</span>: ${item.content}</div>`;
       }
     });
   
@@ -440,6 +441,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
 
 
 
