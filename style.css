@@ -268,21 +268,26 @@
         padding: 0;
         margin: 0;
     }
-    .lnd-sns-like{
-        border-bottom: 1px solid rgb(214, 214, 214);
-        line-height: 100%;
-        display: flex;
-        align-items: center;
-        padding: 5px 0 10px 0;
-        margin-bottom: 10px;
-    }
-    .lnd-sns-like::before{
-        content: "\f004";
-        font-family: "FontAwesome";
-        color: #eb6b6a;
-        font-size: 1.3em;
-        margin-right: 13px;
-    }
+.lnd-sns-like {
+    border-bottom: 1px solid rgb(214, 214, 214);
+    line-height: 1.6
+    display: block;
+    padding: 5px 0 10px 0;
+    margin-bottom: 10px;
+}
+
+.lnd-sns-like::before {
+    content: "\f004";
+    font-family: "FontAwesome";
+    color: #eb6b6a;
+    font-size: 1.5em;
+    margin-right: 8px;
+    
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+}
     .commenter{ color: #c16a55; }
 
 .how-to-info {
@@ -489,6 +494,7 @@
 .lnd-sns-content img:hover {
     opacity: 0.9;
 }
+
 
 
 
