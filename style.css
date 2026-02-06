@@ -274,18 +274,14 @@
     padding: 10px;
     margin: 10px 0;
 }
-.lnd-sns-comment p{
+.lnd-sns-comment .lnd-text {
     line-height: 1.5;
     padding: 0;
     margin: 0;
-		color: #59575C;
+    color: #59575C;
+    text-indent: 0;
+    list-style: none;
 }
-
-/* .lnd-sns-comment i{
-    color: #eb6b6a;
-    font-size: 1.5em;
-    margin-right: 15px;
-} */
 .lnd-sns-like{
     border-bottom: 1px solid rgb(214, 214, 214);
     line-height: 100%;
@@ -549,3 +545,4 @@
     .crop-edit-button:hover {
       background: #45a049;
     }
+
