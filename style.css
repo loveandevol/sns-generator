@@ -234,14 +234,14 @@
 }
 .lnd-right{
     width: 88%;
-    padding-left: 15px;
+    padding-left: 20px;
 }
 
 .lnd-sns-icon {
     /* [기존 설정 유지] */
     content: "";
     display: block;
-    width: 60px;
+    width: 50px;
     aspect-ratio: 1 / 1;
     background-size: cover;
     background-position: center;
@@ -594,6 +594,7 @@
     .crop-edit-button:hover {
       background: #45a049;
     }
+
 
 
 
