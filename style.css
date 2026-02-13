@@ -287,7 +287,7 @@
 
 .lnd-sns-content{
     font-family: "Pretendard Variable", "Pretendard JP Variable";
-    font-size: 1.3em;
+    font-size: 1.4em;
     font-weight: 500;
     line-height: 1.5;
 		color: #59575C;
@@ -594,6 +594,7 @@
     .crop-edit-button:hover {
       background: #45a049;
     }
+
 
 
 
